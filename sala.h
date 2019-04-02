@@ -7,6 +7,7 @@ class sala:public QThread
 private:
 
     char *Jugadores[4];
+    int puntajes[4];
     int turno=4;
     QThread hola;
    void run();
@@ -15,6 +16,7 @@ public:
      void agregar_jugador(char ip[]);
      char Dame_ip(int valor );
      void empezar();
+     int jugadores_faltantes();
 };
 
 #endif // SALA_H

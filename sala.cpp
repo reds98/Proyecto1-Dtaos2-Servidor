@@ -6,7 +6,7 @@ using namespace std;
 void sala::run()
 {
     //aqui iria la logica de la sala
-    count<<"el hilo funciona"<<endl;
+    cout<<"el hilo funciona"<<endl;
 }
 
 sala::sala()
@@ -19,6 +19,7 @@ void sala::agregar_jugador(char ip[])
     if (turno!=0){
         Jugadores[4-turno]=ip;
         cout<<Jugadores[4-turno]<<endl;
+        puntajes[4-turno]=0;
         turno=turno-1;
     }
     else {
@@ -34,4 +35,9 @@ char sala::Dame_ip(int valor)
 void sala::empezar()
 {
     this->start();
+}
+
+int sala::jugadores_faltantes()
+{
+    return turno;
 }
