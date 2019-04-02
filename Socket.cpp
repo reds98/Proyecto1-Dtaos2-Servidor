@@ -114,23 +114,38 @@ void Socket::prueba(char *mensaje,int puerto) {
         int id=traductor.getID(jason);
           //send(new_socket , mensaje , strlen(mensaje) , 0 );
         if (id==0){
+
             string nombre="";
             string ip="";
             traductor.DeserializarCrearSala(jason,&ip,&nombre);
-            sala * sala1= new sala();
+            sala * sala1= new sala(puerto+1);
+            puerto=puerto+1;
             sala1->agregar_jugador(ip,nombre);
             cout<<"debug 1"<<endl;
             partidas.insert(make_pair(codigo,sala1));
+            string respuesta=traductor.SerializarRespuestaCrearSala(codigo++);
+
+            cout<<respuesta.c_str()<<"esta es la respuesta"<<endl;
+            send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
 
         }
         else if(id==1){
+
             string nombre="";
             string ip="";
-            int codigo=0;
             traductor.DeserializarUnirseSala(jason,&ip,&nombre,&codigo);
-            partidas[codigo]->agregar_jugador(ip,nombre);
+            if (partidas[codigo]->Hay_campos()){
+                 partidas[codigo]->agregar_jugador(ip,nombre);
+                 string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());
+                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+
+            }
+            else{
+             string respuesta=traductor.SerializarRespuestaUnirseSala(false,0,0);
+             send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+            }
         }
-        send(new_socket , mensaje , strlen(mensaje) , 0 );
+        //send(new_socket , mensaje , strlen(mensaje) , 0 );
         printf("Hello message sent\n");
         close(new_socket);
     }

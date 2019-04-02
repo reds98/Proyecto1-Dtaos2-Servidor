@@ -32,6 +32,7 @@ private:
     Socket();
     int codigo=100000;
     map<int,sala*> partidas;
+    int puerto=8080;
 public:
     static Socket & getInstance(){
         static Socket instance;

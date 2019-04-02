@@ -77,16 +77,12 @@ void TraductorServidor::DeserializarCrearSala(string json, string *ip,string* no
 
 }
 
-string TraductorServidor::SerializarRespuestaCrearSala(bool val, int codigo, int turno)
+string TraductorServidor::SerializarRespuestaCrearSala(int codigo)
 {
-    const char* json = "{\"val\":true,"
-                       "\"codigo\":123456,"
-                       "\"turno\":1}";
+    const char* json = "{\"codigo\":123456}";
     Document d;
     d.Parse(json);
-    d["val"].SetBool(val);
     d["codigo"].SetInt(codigo);
-    d["turno"].SetInt(turno);
     StringBuffer buffer;
     Writer<StringBuffer> writer(buffer);
     d.Accept(writer);
