@@ -30,7 +30,8 @@ SOURCES += \
     node.cpp \
     tablero_servidor.cpp \
     traductorservidor.cpp \
-    bolsa.cpp
+    bolsa.cpp \
+    ficha.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     node.h \
     tablero_servidor.h \
     traductorservidor.h \
-    bolsa.h
+    bolsa.h \
+    ficha.h
 
 FORMS += \
         mainwindow.ui
