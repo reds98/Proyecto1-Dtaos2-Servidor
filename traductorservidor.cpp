@@ -68,11 +68,12 @@ string TraductorServidor::getPalabra(string json)
     return d["palabra"].GetString();
 }
 
-void TraductorServidor::DeserializarCrearSala(string json, string *ip)
+void TraductorServidor::DeserializarCrearSala(string json, string *ip,string* nombre)
 {
     Document d;
     d.Parse(json.c_str());
     *ip =d["ip"].GetString();
+    *nombre= d["nombre"].GetString();
 
 }
 
@@ -90,5 +91,32 @@ string TraductorServidor::SerializarRespuestaCrearSala(bool val, int codigo, int
     Writer<StringBuffer> writer(buffer);
     d.Accept(writer);
     return buffer.GetString();
+}
+
+string TraductorServidor::SerializarRespuestaUnirseSala(bool val, int turno, int puerto)
+{
+    const char* json = "{\"val\":true,"
+                       "\"puerto\":123456,"
+                       "\"turno\":1}";
+    Document d;
+    d.Parse(json);
+    d["val"].SetBool(val);
+    d["puerto"].SetInt(puerto);
+    d["turno"].SetInt(turno);
+    StringBuffer buffer;
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+    return buffer.GetString();
+}
+
+void TraductorServidor::DeserializarUnirseSala(string json, string *ip, string *nombre, int *codigo)
+{
+    Document d;
+    d.Parse(json.c_str());
+    *ip =d["ip"].GetString();
+    *nombre= d["nombre"].GetString();
+     *codigo= d["codigo"].GetInt();
+
+
 }
 

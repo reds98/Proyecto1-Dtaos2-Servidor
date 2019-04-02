@@ -23,8 +23,10 @@ public:
 
     string getPalabra(string json);
 
-    void DeserializarCrearSala(string json,string* ip);
+    void DeserializarCrearSala(string json,string* ip,string* nombre);
     string SerializarRespuestaCrearSala(bool val, int codigo, int turno);
+     string SerializarRespuestaUnirseSala(bool val, int turno,int puerto);
+    void DeserializarUnirseSala(string json,string* ip,string* nombre,int * codigo);
 };
 
 #endif // TRADUCTORSERVIDOR_H

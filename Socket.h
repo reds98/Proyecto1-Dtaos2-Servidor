@@ -9,10 +9,16 @@
 #include <unistd.h>
 #include <string.h>
 #include <bits/stdc++.h>
+#include "tablero_servidor.h"
+#include"traductorservidor.h"
+#include <map>
+#include "sala.h"
 #define PORT 8081
 using namespace std;
 class Socket {
 private:
+    Tablero_Servidor tablero;
+    TraductorServidor traductor =TraductorServidor::getInstance();
     int Puerto=8080;
     int sock = 0;
     int server_fd, new_socket, valread;
@@ -23,10 +29,17 @@ private:
     char char_array;
     struct sockaddr_in serv_addr;
     char *hello="hola guapo";
-public:
     Socket();
-    int enviar(string Mensaje,int puerto);
-    void escuchar(string Mensaje,int puerto);
+    int codigo=100000;
+    map<int,sala*> partidas;
+public:
+    static Socket & getInstance(){
+        static Socket instance;
+        return instance;
+    }
+
+    int enviar(string Mensaje,int puerto,string ip);
+    void escuchar_sala(string Mensaje,int puerto,string ip);
     void prueba(char *mensaje,int puerto);
 };
 
