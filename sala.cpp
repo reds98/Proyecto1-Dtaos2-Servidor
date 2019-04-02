@@ -9,10 +9,10 @@ void sala::run()
     //aqui iria la logica de la sala
     cout<<"el hilo funciona"<<endl;
     //aqui vammos a empezar a asignar los turno a los jugadores
-    int valor=3;//maximo 4 computadoras
+    int valor=1;//maximo 4 computadoras
     Socket  *canal= &Socket::getInstance();
     while(valor>=0){
-    string jason=traductor.SerializarRespuestaUnirseSala(true,4-valor,puerto);
+    string jason=traductor.SerializarRespuestaUnirseSala(true,2-valor,puerto);
     canal->enviar(jason,8080,Jugadores[valor]);
     valor=valor-1;
     }
@@ -29,10 +29,10 @@ void sala::agregar_jugador(string ip,string nombre)
 {
 
     if (turno!=0){
-        Jugadores[4-turno]=ip;
-        Nombre[4-turno]=nombre;
-        cout<<"Se unio el jugador "<<Jugadores[4-turno]<<endl;
-        cout<<"Se unio el nombre "<<Nombre[4-turno]<<endl;
+        Jugadores[2-turno]=ip;
+        Nombre[2-turno]=nombre;
+        cout<<"Se unio el jugador "<<Jugadores[2-turno]<<endl;
+        cout<<"Se unio el nombre "<<Nombre[2-turno]<<endl;
         turno=turno-1;
         if(turno==0){
             this->start();

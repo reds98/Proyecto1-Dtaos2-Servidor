@@ -10,9 +10,9 @@ class sala:public QThread
 {
 private:
   TraductorServidor traductor =TraductorServidor::getInstance();
-    string  Jugadores[4];
-    string  Nombre[4];
-    int turno=4;
+    string  Jugadores[2];
+    string  Nombre[2];
+    int turno=2;
     QThread hola;
     int puerto;
    void run();
