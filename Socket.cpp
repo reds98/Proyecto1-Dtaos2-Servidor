@@ -69,6 +69,7 @@ void Socket::escuchar_sala(string Mensaje,int puerto,string ip) {
 }
 void Socket::prueba(char *mensaje,int puerto) {
     // Creating socket file descriptor
+    cout<<"entre en prueba"<<endl;
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
         perror("socket failed");
@@ -85,7 +86,7 @@ void Socket::prueba(char *mensaje,int puerto) {
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     // address.sin_port = htons( PORT );
-    int puerto1=8081;
+   // int puerto1=8081;
     address.sin_port = htons(puerto);
 
     // Forcefully attaching socket to the port 8080
@@ -100,39 +101,39 @@ void Socket::prueba(char *mensaje,int puerto) {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
-                             (socklen_t*)&addrlen))<0)
+    while((new_socket = accept(server_fd, (struct sockaddr *)&address,
+                             (socklen_t*)&addrlen))>=0)
     {
-        perror("accept");
-        exit(EXIT_FAILURE);
-    }
-    valread = read( new_socket , buffer, 1024);
-    //printf("%s\n",buffer );
-  //  cout<<buffer<<endl;
+        cout<<"previo a leer"<<endl;
+        memset(buffer,0,1024);
+        valread = read( new_socket , buffer, 1024);
+        //printf("%s\n",buffer );
+      //  cout<<buffer<<endl;
+        string jason=  string(buffer);
+        cout<<jason<<endl;
+        int id=traductor.getID(jason);
+          //send(new_socket , mensaje , strlen(mensaje) , 0 );
+        if (id==0){
+            string nombre="";
+            string ip="";
+            traductor.DeserializarCrearSala(jason,&ip,&nombre);
+            sala * sala1= new sala();
+            sala1->agregar_jugador(ip,nombre);
+            cout<<"debug 1"<<endl;
+            partidas.insert(make_pair(codigo,sala1));
 
-    string jason=  string(buffer);
-    int id=traductor.getID(jason);
-    if (id==0){
-        string nombre="";
-        string ip="";
-        traductor.DeserializarCrearSala(jason,&ip,&nombre);
-        sala * sala1= new sala();
-        sala1->agregar_jugador(ip,nombre);
-        partidas.insert(make_pair(codigo,sala1));
-
-
+        }
+        else if(id==1){
+            string nombre="";
+            string ip="";
+            int codigo=0;
+            traductor.DeserializarUnirseSala(jason,&ip,&nombre,&codigo);
+            partidas[codigo]->agregar_jugador(ip,nombre);
+        }
+        send(new_socket , mensaje , strlen(mensaje) , 0 );
+        printf("Hello message sent\n");
+        close(new_socket);
     }
-    else if(id==1){
-        string nombre="";
-        string ip="";
-        int codigo=0;
-        traductor.DeserializarUnirseSala(jason,&ip,&nombre,&codigo);
-        partidas[codigo]->agregar_jugador(ip,nombre);
-    }
-    cout<<jason<<endl;
-    send(new_socket , mensaje , strlen(mensaje) , 0 );
-    //printf("Hello message sent\n");
-    cout<<"hello message sent"<<endl;
-    close(new_socket);
+
 
 }
