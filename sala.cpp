@@ -6,7 +6,7 @@ using namespace std;
 void sala::run()
 {
     //aqui iria la logica de la sala
-    count<<"el hilo funciona"<<endl;
+    cout<<"el hilo funciona"<<endl;
 }
 
 sala::sala()
