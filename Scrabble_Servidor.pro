@@ -24,10 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        Socket.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+        Socket.h \
         mainwindow.h
 
 FORMS += \
