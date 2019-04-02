@@ -28,11 +28,23 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         sala.cpp
+        mainwindow.cpp \
+    linkedlist.cpp \
+    node.cpp \
+    tablero_servidor.cpp \
+    traductorservidor.cpp \
+    bolsa.cpp
 
 HEADERS += \
         Socket.h \
         mainwindow.h \
         sala.h
+        mainwindow.h \
+    linkedlist.h \
+    node.h \
+    tablero_servidor.h \
+    traductorservidor.h \
+    bolsa.h
 
 FORMS += \
         mainwindow.ui
