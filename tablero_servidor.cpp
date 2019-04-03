@@ -8,6 +8,7 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
+#include "bolsa.h"
 using namespace rapidjson;
 using namespace std;
 
@@ -75,7 +76,7 @@ void Tablero_Servidor::ColocarFichas()
  * @brief Tablero_Servidor::LeerPalabras Coloca y lee todas las palabras nuevas formadas
  * @return una lista con las strings de las palabras formadas
  */
-string Tablero_Servidor::LeerPalabras()
+string Tablero_Servidor::LeerPalabras( Bolsa  Total_Fichas)
 {
     LinkedList* L;
     bool val;
@@ -109,12 +110,14 @@ string Tablero_Servidor::LeerPalabras()
         cout<<"Palabra principal: "<<*stmp<<endl;
         L->Add(stmp);
         AgregarPerpendiculares(L);
+        resumen_palabras+=*stmp+",";
     }
 
     string s;
     if (L->getT()>0){
         val=ValidarPalabras(L);
-        s=Bolsa::getInstance().fichas_turno(tam);
+       // s=Bolsa::getInstance().fichas_turno(tam);
+        s=Total_Fichas.fichas_turno(tam);
     }
     else {
         val=false;
@@ -127,7 +130,7 @@ string Tablero_Servidor::LeerPalabras()
     else{
         hayfichas=false;
     }
-    return T.SerializarRespuestaTurnoPropio(val,hayfichas,PuntajeFichas(),s);
+    return T.SerializarRespuestaTurnoPropio(val,hayfichas,PuntajeFichas(),s,resumen_palabras);
 }
 /**
  * @brief Tablero_Servidor::AgregarPerpendiculares Agrega a una lista palabras perpendiculares a la principal
@@ -152,6 +155,7 @@ void Tablero_Servidor::AgregarPerpendiculares(LinkedList *L)
         }
         if (stmp->length()<2) continue;
         cout<<"Palabra perpendicular: "<<*stmp<<endl;
+        resumen_palabras+=*stmp+",";
         L->Add(stmp);
     }
 }
@@ -289,7 +293,7 @@ bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
  */
 bool Tablero_Servidor::Validar(string *s)
 {
-    QFile file(":/txt/txt/words_alpha.txt");
+    QFile file(":/txt/words_alpha.txt");
     if(!file.exists()){
         qDebug() <<"No abre el diccionario xd";
         return false;

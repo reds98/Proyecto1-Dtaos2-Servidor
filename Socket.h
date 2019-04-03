@@ -43,6 +43,7 @@ public:
 
     int enviar(string Mensaje,int puerto,string ip);
     void escuchar_sala(string Mensaje,int puerto,string ip);
+    void escuchar_partida(int puerto,sala * partida);
     void prueba(char *mensaje,int puerto);
 };
 

@@ -17,11 +17,25 @@ void sala::run()
     valor=valor-1;
     cout<<'*'<<endl;
     }
-    cout<<"termine lindo"<<endl;
+
+    cout<<puerto<<"66677"<<endl;
+
+    while (true) {
+
+        canal->escuchar_partida(puerto,this);
+
+    }
+    cout<<" lindo"<<endl;
+}
+
+Tablero_Servidor* sala::getTablero()
+{
+    return Tablero;
 }
 
 sala::sala(int porto,int cantidad_de_jugadores)
 {
+Tablero=new Tablero_Servidor ();
 total_de_jugadores=cantidad_de_jugadores;
 turno=cantidad_de_jugadores;
 puerto=porto;
@@ -77,4 +91,23 @@ int sala::get_turno()
 int sala::get_puerto()
 {
     return puerto;
+}
+
+Bolsa *sala::getBolsa()
+{
+    return Fichas_Totales;
+}
+
+void sala::reponder_al_resto(int jugador_actual,string jason)
+{
+    int valor=total_de_jugadores-1;
+    Socket  *canal= &Socket::getInstance();
+    while(valor>=0){
+        if (valor!=jugador_actual){
+        string respuesta=jason;
+        canal->enviar(jason,puerto,Jugadores[valor]);
+        cout<<'*'<<endl;
+        }
+        valor=valor-1;
+    }
 }

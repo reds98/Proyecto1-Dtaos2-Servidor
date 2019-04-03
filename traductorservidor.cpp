@@ -22,17 +22,19 @@ void TraductorServidor::DeserializarFichasJugadas(string json, int *tam, bool *E
     }
 }
 
-string TraductorServidor::SerializarRespuestaTurnoPropio(bool val, bool hayfichas, int puntos, string repo)
+string TraductorServidor::SerializarRespuestaTurnoPropio(bool val, bool hayfichas, int puntos, string repo,string resumen)
 {
     const char* json = "{\"val\":true,"
                        "\"hayfichas\":true,"
                        "\"puntos\":0,"
+                       "\"resumen\":\"abcd\","
                        "\"repo\":\"abcd\"}";
     Document d;
     d.Parse(json);
     d["val"].SetBool(val);
     d["hayfichas"].SetBool(hayfichas);
     d["puntos"].SetInt(puntos);
+    d["resumen"].SetString(resumen.c_str(),sizeof (char)*resumen.length());
     d["repo"].SetString(repo.c_str(),sizeof (char)*repo.length());
     StringBuffer buffer;
     Writer<StringBuffer> writer(buffer);
@@ -60,6 +62,13 @@ int TraductorServidor::getID(string json)
     Document d;
     d.Parse(json.c_str());
     return d["id"].GetInt();
+}
+
+bool TraductorServidor::getval(string json)
+{
+    Document d;
+    d.Parse(json.c_str());
+    return d["val"].GetBool();
 }
 
 string TraductorServidor::getPalabra(string json)

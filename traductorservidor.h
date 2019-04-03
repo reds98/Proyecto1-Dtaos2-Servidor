@@ -17,9 +17,10 @@ public:
         return instance;
     }
     void DeserializarFichasJugadas(string json, int* tam,bool* EsHorizontal, char* letras,int* filas,int* columnas);
-    string SerializarRespuestaTurnoPropio(bool val, bool hayfichas,int puntos, string repo);
+    string SerializarRespuestaTurnoPropio(bool val, bool hayfichas,int puntos, string repo,string resumen);
     string SerializarRespuestaTurnoAjeno(string json);
     int getID(string json);
+    bool getval(string json);
 
     string getPalabra(string json);
 

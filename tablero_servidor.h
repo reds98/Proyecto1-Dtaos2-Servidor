@@ -25,6 +25,7 @@ private:
     int ref;
     LinkedList* ListaPalabras;
     int PosEspeciales[15][15];
+    string resumen_palabras="";
 public:
     Tablero_Servidor();
     static Tablero_Servidor& getInstance(){
@@ -32,7 +33,7 @@ public:
         return instance;
     }
     void ColocarFichas();
-    string LeerPalabras();
+    string LeerPalabras(Bolsa Total_Fichas);
     void AgregarPerpendiculares(LinkedList* L);
     void ColocarFichaManual(char letra,int fila, int columna);
     int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);
