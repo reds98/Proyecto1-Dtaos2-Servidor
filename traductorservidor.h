@@ -25,7 +25,7 @@ public:
 
     void DeserializarCrearSala(string json,string* ip,string* nombre);
     string SerializarRespuestaCrearSala( int codigo);
-     string SerializarRespuestaUnirseSala(bool val, int turno,int puerto);
+     string SerializarRespuestaUnirseSala(string inciales, int turno,int puerto);
     void DeserializarUnirseSala(string json,string* ip,string* nombre,int * codigo);
 };
 

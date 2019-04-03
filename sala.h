@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include "traductorservidor.h"
+#include "bolsa.h"
 using namespace std;
 class sala:public QThread
 {
@@ -15,6 +16,7 @@ private:
     int turno=2;
     QThread hola;
     int puerto;
+    Bolsa *Fichas_Totales;
    void run();
 public:
     sala(int porto);

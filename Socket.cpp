@@ -129,7 +129,7 @@ void Socket::prueba(char *mensaje,int puerto) {
             cout<<"debug 1"<<endl;
             partidas.insert(make_pair(codigo,sala1));
             string respuesta=traductor.SerializarRespuestaCrearSala(codigo++);
-
+            codigo=codigo+1;
             cout<<respuesta.c_str()<<"esta es la respuesta"<<endl;
             send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
 

@@ -11,11 +11,13 @@ void sala::run()
     //aqui vammos a empezar a asignar los turno a los jugadores
     int valor=1;//maximo 4 computadoras
     Socket  *canal= &Socket::getInstance();
+
     while(valor>=0){
-    string jason=traductor.SerializarRespuestaUnirseSala(true,2-valor,puerto);
+    string jason=traductor.SerializarRespuestaUnirseSala(Fichas_Totales->fichas_turno(7),2-valor,puerto);
     canal->enviar(jason,8080,Jugadores[valor]);
     valor=valor-1;
     }
+    cout<<Fichas_Totales->contar_cantidad()<<"este es el restante"<<endl;
 
 }
 
@@ -23,6 +25,7 @@ sala::sala(int porto)
 {
 puerto=porto;
 cout<<"Se creo la sala con el  puerto "<<puerto<<endl;
+Fichas_Totales=new Bolsa ();
 }
 
 void sala::agregar_jugador(string ip,string nombre)

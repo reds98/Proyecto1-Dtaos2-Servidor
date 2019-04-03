@@ -1,5 +1,6 @@
 #include "traductorservidor.h"
 #include "qdebug.h"
+#include"iostream"
 
 TraductorServidor::TraductorServidor()
 {
@@ -89,14 +90,14 @@ string TraductorServidor::SerializarRespuestaCrearSala(int codigo)
     return buffer.GetString();
 }
 
-string TraductorServidor::SerializarRespuestaUnirseSala(bool val, int turno, int puerto)
+string TraductorServidor::SerializarRespuestaUnirseSala(string iniciales, int turno, int puerto)
 {
-    const char* json = "{\"val\":true,"
+    const char* json = "{\"iniciales\":\"abcdefg\","
                        "\"puerto\":123456,"
                        "\"turno\":1}";
     Document d;
     d.Parse(json);
-    d["val"].SetBool(val);
+    d["iniciales"].SetString(iniciales.c_str(),sizeof (char)*iniciales.length());
     d["puerto"].SetInt(puerto);
     d["turno"].SetInt(turno);
     StringBuffer buffer;
