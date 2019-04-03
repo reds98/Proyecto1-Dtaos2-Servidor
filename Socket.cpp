@@ -136,13 +136,15 @@ void Socket::prueba(char *mensaje,int puerto) {
             traductor.DeserializarUnirseSala(jason,&ip,&nombre,&codigo);
             if (partidas[codigo]->Hay_campos()){
                  partidas[codigo]->agregar_jugador(ip,nombre);
-                 string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());
+                 string respuesta="1";
+                 //string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());
                  send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
 
             }
             else{
-             string respuesta=traductor.SerializarRespuestaUnirseSala(false,0,0);
-             send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+                 string respuesta="2";
+             //string respuesta=traductor.SerializarRespuestaUnirseSala(false,0,0);
+                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
             }
         }
         //send(new_socket , mensaje , strlen(mensaje) , 0 );
