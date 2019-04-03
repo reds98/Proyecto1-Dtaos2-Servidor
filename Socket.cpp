@@ -121,9 +121,11 @@ void Socket::prueba(char *mensaje,int puerto) {
             codigo=codigo_global;
             string nombre="";
             string ip="";
-            traductor.DeserializarCrearSala(jason,&ip,&nombre);
-            sala * sala1= new sala(puerto+1);
+            int tsala=0;
+            traductor.DeserializarCrearSala(jason,&ip,&nombre,&tsala);
+            sala * sala1= new sala(puerto+1,tsala);
             puerto=puerto+1;
+            cout<<"voy a agregar un jugador"<<endl;
             sala1->agregar_jugador(ip,nombre);
             cout<<"debug 1"<<endl;
             partidas.insert(make_pair(codigo,sala1));

@@ -23,9 +23,9 @@ public:
 
     string getPalabra(string json);
 
-    void DeserializarCrearSala(string json,string* ip,string* nombre);
+    void DeserializarCrearSala(string json,string* ip,string* nombre,int *tsala);
     string SerializarRespuestaCrearSala( int codigo);
-     string SerializarRespuestaUnirseSala(string inciales, int turno,int puerto);
+     string SerializarRespuestaUnirseSala(string inciales, int turno,int puerto,int tsala);
     void DeserializarUnirseSala(string json,string* ip,string* nombre,int * codigo);
 };
 

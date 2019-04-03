@@ -11,15 +11,16 @@ class sala:public QThread
 {
 private:
   TraductorServidor traductor =TraductorServidor::getInstance();
-    string  Jugadores[2];
-    string  Nombre[2];
-    int turno=2;
+    string  Jugadores[4];
+    string  Nombre[4];
+    int turno;
     QThread hola;
     int puerto;
     Bolsa *Fichas_Totales;
    void run();
+   int total_de_jugadores;
 public:
-    sala(int porto);
+    sala(int porto,int cantidad_de_jugadores);
      void agregar_jugador(string ip,string nombre);
      string Dame_ip(int valor );
      void empezar();
