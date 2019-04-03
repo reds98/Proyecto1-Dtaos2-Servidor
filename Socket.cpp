@@ -15,6 +15,11 @@ Socket::Socket() {
     int Puerto_prueba=8081;
 }
 
+void Socket::mapa()
+{
+    cout<<partidas[99]<<endl;
+}
+
 int Socket::enviar(string Mensaje,int puerto,string ip) {
     int n = Mensaje.length();
     char char_array[n + 1];
@@ -134,7 +139,12 @@ void Socket::prueba(char *mensaje,int puerto) {
             string nombre="";
             string ip="";
             traductor.DeserializarUnirseSala(jason,&ip,&nombre,&codigo);
-            if (partidas[codigo]->Hay_campos()){
+            if (partidas[codigo]==0){
+                string respuesta="0";
+                //string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());
+                send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+            }
+            else if (partidas[codigo]->Hay_campos()){
                  partidas[codigo]->agregar_jugador(ip,nombre);
                  string respuesta="1";
                  //string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());

@@ -34,6 +34,7 @@ private:
     map<int,sala*> partidas;
     int puerto=8080;
 public:
+    void mapa();
     static Socket & getInstance(){
         static Socket instance;
         return instance;

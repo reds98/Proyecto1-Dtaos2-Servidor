@@ -24,6 +24,8 @@ public:
      bool Hay_campos();
      int get_turno();
      int get_puerto();
+
 };
+
 
 #endif // SALA_H
