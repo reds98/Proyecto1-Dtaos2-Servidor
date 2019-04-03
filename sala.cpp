@@ -16,9 +16,9 @@ void sala::run()
     string jason=traductor.SerializarRespuestaUnirseSala(Fichas_Totales->fichas_turno(7),2-valor,puerto);
     canal->enviar(jason,8080,Jugadores[valor]);
     valor=valor-1;
+    cout<<'*'<<endl;
     }
-    cout<<Fichas_Totales->contar_cantidad()<<"este es el restante"<<endl;
-
+    cout<<"termine lindo"<<endl;
 }
 
 sala::sala(int porto)

@@ -30,6 +30,7 @@ private:
     struct sockaddr_in serv_addr;
     char *hello="hola guapo";
     Socket();
+    int codigo_global=100000;
     int codigo=100000;
     map<int,sala*> partidas;
     int puerto=8080;

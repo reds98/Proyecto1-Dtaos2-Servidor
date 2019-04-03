@@ -18,3 +18,8 @@ int main(int argc, char *argv[])
 //    return a.exec();
        return 0;
 }
+void descomponer_en_palabras(string  palabras_formadas){
+
+
+
+};

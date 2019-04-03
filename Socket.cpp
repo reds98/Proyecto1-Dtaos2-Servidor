@@ -57,7 +57,6 @@ int Socket::enviar(string Mensaje,int puerto,string ip) {
     valread = static_cast<int>(read(sock , buffer, 1024));
     // send(sock , hello , strlen(hello) , 0 );
     close(sock);
-    printf("%s\n",buffer );
     return 0;
 }
 void Socket::escuchar_sala(string Mensaje,int puerto,string ip) {
@@ -119,7 +118,7 @@ void Socket::prueba(char *mensaje,int puerto) {
         int id=traductor.getID(jason);
           //send(new_socket , mensaje , strlen(mensaje) , 0 );
         if (id==0){
-
+            codigo=codigo_global;
             string nombre="";
             string ip="";
             traductor.DeserializarCrearSala(jason,&ip,&nombre);
@@ -135,19 +134,17 @@ void Socket::prueba(char *mensaje,int puerto) {
 
         }
         else if(id==1){
-
+            codigo_global=codigo;
             string nombre="";
             string ip="";
             traductor.DeserializarUnirseSala(jason,&ip,&nombre,&codigo);
             if (partidas[codigo]==0){
                 string respuesta="0";
-                //string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());
                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
             }
             else if (partidas[codigo]->Hay_campos()){
                  partidas[codigo]->agregar_jugador(ip,nombre);
                  string respuesta="1";
-                 //string respuesta=traductor.SerializarRespuestaUnirseSala(true,partidas[codigo]->get_turno(),partidas[codigo]->get_puerto());
                  send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
 
             }
