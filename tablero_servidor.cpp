@@ -76,7 +76,7 @@ void Tablero_Servidor::ColocarFichas()
  * @brief Tablero_Servidor::LeerPalabras Coloca y lee todas las palabras nuevas formadas
  * @return una lista con las strings de las palabras formadas
  */
-string Tablero_Servidor::LeerPalabras( Bolsa  Total_Fichas)
+string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
 {
     LinkedList* L;
     bool val;
@@ -117,7 +117,7 @@ string Tablero_Servidor::LeerPalabras( Bolsa  Total_Fichas)
     if (L->getT()>0){
         val=ValidarPalabras(L);
        // s=Bolsa::getInstance().fichas_turno(tam);
-        s=Total_Fichas.fichas_turno(tam);
+        s=Total_Fichas->fichas_turno(tam);
     }
     else {
         val=false;

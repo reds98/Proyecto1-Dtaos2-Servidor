@@ -18,12 +18,12 @@ private:
     TraductorServidor traductor =TraductorServidor::getInstance();
     string  Jugadores[4];
     string  Nombre[4];
-    int turno;
     QThread hola;
     int puerto;
     Bolsa *Fichas_Totales;
     void run();
     int total_de_jugadores;
+    int ultimo_jugador=0;
 public:
      Tablero_Servidor* getTablero();
     sala(int porto,int cantidad_de_jugadores);
@@ -34,7 +34,7 @@ public:
      int get_turno();
      int get_puerto();
      Bolsa* getBolsa();
-     void reponder_al_resto(int jugador_actual,string jason);
+     void ResponderResto(string jason);
 };
 
 

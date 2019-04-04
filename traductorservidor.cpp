@@ -52,7 +52,6 @@ string TraductorServidor::SerializarRespuestaTurnoAjeno(string json)
 
     Writer<StringBuffer> writer(buffer);
     d.Accept(writer);
-    qDebug()<<buffer.GetString();
     return buffer.GetString();
 
 }
