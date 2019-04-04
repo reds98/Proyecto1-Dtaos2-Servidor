@@ -2,11 +2,14 @@
 #define SALA_H
 #include <QThread>
 #include "string"
-#include <string>
 #include <iostream>
 #include "traductorservidor.h"
 #include "bolsa.h"
 #include "tablero_servidor.h"
+#include "qdebug.h"
+#include <cstring>
+#include <iostream>
+
 using namespace std;
 class sala:public QThread
 {

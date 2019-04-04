@@ -8,16 +8,11 @@
 #include <unistd.h>
 #include <string.h>
 #include <bits/stdc++.h>
-#include "sala.h"
-#define PORT 8081
+#include "qdebug.h"
+#define PORT 8080
 using namespace std;
 Socket::Socket() {
     int Puerto_prueba=8081;
-}
-
-void Socket::mapa()
-{
-    cout<<partidas[99]<<endl;
 }
 
 int Socket::enviar(string Mensaje,int puerto,string ip) {
@@ -217,5 +212,97 @@ void Socket::prueba(char *mensaje,int puerto) {
         close(new_socket);
     }
 
+
+}
+
+void Socket::escuchar_sala2(int puerto)
+{
+    int server_fd, new_socket, valread;
+        struct sockaddr_in address;
+        int opt = 1;
+        int addrlen = sizeof(address);
+        char buffer[1024] = {0};
+        char *hello = "Hello from server";
+
+        // Creating socket file descriptor
+        if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+        {
+            perror("socket failed");
+            exit(EXIT_FAILURE);
+        }
+
+        // Forcefully attaching socket to the port 8080
+        if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+                                                      &opt, sizeof(opt)))
+        {
+            perror("setsockopt");
+            exit(EXIT_FAILURE);
+        }
+        address.sin_family = AF_INET;
+        address.sin_addr.s_addr = INADDR_ANY;
+        address.sin_port = htons( PORT );
+
+        // Forcefully attaching socket to the port 8080
+        if (bind(server_fd, (struct sockaddr *)&address,
+                                     sizeof(address))<0)
+        {
+            perror("bind failed");
+            exit(EXIT_FAILURE);
+        }
+        if (listen(server_fd, 3) < 0)
+        {
+            perror("listen");
+            exit(EXIT_FAILURE);
+        }
+        while ((new_socket = accept(server_fd, (struct sockaddr *)&address,
+                           (socklen_t*)&addrlen))>=0)
+        {
+            memset(buffer,0,1024);
+
+            valread = read( new_socket , buffer, 1024);
+
+            string peticion=  string(buffer);
+            qDebug()<<"JASON PARA SALAS: "<<buffer;
+            int id=traductor.getID(peticion);
+
+            if (id==0){
+                string nombre="";
+                string ip="";
+                int tsala=0;
+                traductor.DeserializarCrearSala(peticion,&ip,&nombre,&tsala);
+
+                sala * sala1= new sala(++puerto,tsala);
+                sala1->agregar_jugador(ip,nombre);
+                partidas.insert(make_pair(codigo,sala1));
+
+                string respuesta=traductor.SerializarRespuestaCrearSala(codigo_global++);
+                qDebug()<<"JASON RESPONDIDO: "<<respuesta.c_str();
+                send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+
+            }
+            else if(id==1){
+                string nombre="";
+                string ip="";
+                int codigo=0;
+                traductor.DeserializarUnirseSala(peticion,&ip,&nombre,&codigo);
+
+                string respuesta;
+                if (partidas[codigo]==0){
+                    respuesta="0";
+                }
+                else if (partidas[codigo]->Hay_campos()){
+                     partidas[codigo]->agregar_jugador(ip,nombre);
+                     respuesta="1";
+
+                }
+                else{
+                     respuesta="2";
+                }
+                send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+            }
+
+            close(new_socket);
+
+        }
 
 }

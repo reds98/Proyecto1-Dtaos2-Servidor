@@ -35,7 +35,6 @@ private:
     map<int,sala*> partidas;
     int puerto=8080;
 public:
-    void mapa();
     static Socket & getInstance(){
         static Socket instance;
         return instance;
@@ -45,6 +44,7 @@ public:
     void escuchar_sala(string Mensaje,int puerto,string ip);
     void escuchar_partida(int puerto,sala * partida);
     void prueba(char *mensaje,int puerto);
+    void escuchar_sala2(int puerto);
 };
 
 

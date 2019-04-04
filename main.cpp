@@ -2,25 +2,16 @@
 #include <QApplication>
 #include "Socket.h"
 #include "linkedlist.h"
+#include "qdebug.h"
 void descomponer_en_palabras(string  palabras_formadas);
 int main(int argc, char *argv[])
 {
      Socket  *canal= &Socket::getInstance();
-
-
-        string mensaje="si escuche";
-       // cout<<"escuche bro"<<endl;
-       canal->escuchar_sala(mensaje,8080,"");
-      canal->mapa();
-//    QApplication a(argc, argv);
-//    MainWindow w;
-//    w.show();
-//      string prueba=",perro,gato,raton,feo,";
-//      descomponer_en_palabras(prueba);
-
-//    return a.exec();
-       return 0;
+     qDebug()<<"Se inicia el servidor";
+    canal->escuchar_sala2(8080);
+    return 0;
 }
+
 void descomponer_en_palabras(string  palabras_formadas){
     LinkedList *lista_de_palabras=new LinkedList;
     string palabra="";

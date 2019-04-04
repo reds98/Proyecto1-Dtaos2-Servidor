@@ -1,31 +1,19 @@
-#include "sala.h"
-#include <cstring>
-#include <iostream>
-#include "string"
 #include "Socket.h"
+#include "sala.h"
+
 using namespace std;
 void sala::run()
 {
-    //aqui iria la logica de la sala
-    cout<<"el hilo funciona"<<endl;
-    //aqui vammos a empezar a asignar los turno a los jugadores
-    int valor=total_de_jugadores-1;//maximo 4 computadoras
+    qDebug()<<"INCIANO TURNOS";
     Socket  *canal= &Socket::getInstance();
-    while(valor>=0){
-    string jason=traductor.SerializarRespuestaUnirseSala(Fichas_Totales->fichas_turno(7),2-valor,puerto,total_de_jugadores);
-    canal->enviar(jason,8080,Jugadores[valor]);
-    valor=valor-1;
-    cout<<'*'<<endl;
+
+    for (int i=0;i<total_de_jugadores;i++){
+        string tmp=traductor.SerializarRespuestaUnirseSala(Fichas_Totales->fichas_turno(7),i,puerto,total_de_jugadores);
+        qDebug()<<"JASON PARA INICIAR JUEGO: "<<tmp.c_str();
+        canal->enviar(tmp,8080,Jugadores[i]);
     }
-
-    cout<<puerto<<"66677"<<endl;
-
-    while (true) {
-
-        canal->escuchar_partida(puerto,this);
-
-    }
-    cout<<" lindo"<<endl;
+    qDebug()<<"INCIO DE PARTIDA";
+    canal->escuchar_partida(puerto,this);
 }
 
 Tablero_Servidor* sala::getTablero()
