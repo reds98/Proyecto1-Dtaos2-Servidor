@@ -15,14 +15,8 @@ private:
     int Fila;
     int Columna;
     int Valor;
-    static int posiciones[7];
 public:
-    Ficha(QGraphicsItem *parent=nullptr);
-    int yInicial, xInicial, fila, columna, posInicial;
-    int *agregar(int x, int y);
-    int inicial = 44;//Espacio antes de las celdas
-    Ficha(char letra);
-    Ficha(int Fila,int Columna,char letra);
+    Ficha();
     char getLetra() const;
     void setLetra(char value);
     int getFila() const;
@@ -31,14 +25,9 @@ public:
     void setColumna(int value);
     int getValor() const;
     void setValor(int value);
-    bool flagMove = true;
-    static int *getFichasIniciales();
     static int Puntos(char letra);
-    static int *ptrPosicionUnplayed;
     void setUnplayed();
     void setPlayed();
-
-
 };
 #endif // FICHA_H
 

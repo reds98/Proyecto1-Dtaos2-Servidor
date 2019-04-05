@@ -1,6 +1,9 @@
 #ifndef SOCKET_H
 #define SOCKET_H
-#include <unistd.h>
+#include "tablero_servidor.h"
+#include"traductorservidor.h"
+#include <map>
+#include "sala.h"
 #include <stdio.h>
 #include <sys/socket.h>
 #include <stdlib.h>
@@ -9,41 +12,24 @@
 #include <unistd.h>
 #include <string.h>
 #include <bits/stdc++.h>
-#include "tablero_servidor.h"
-#include"traductorservidor.h"
-#include <map>
-#include "sala.h"
-#define PORT 8081
+#include "qdebug.h"
+#define PORT 8080
 using namespace std;
+
 class Socket {
 private:
-    Tablero_Servidor tablero;
-    TraductorServidor traductor =TraductorServidor::getInstance();
-    int Puerto=8080;
-    int sock = 0;
-    int server_fd, new_socket, valread;
-    struct sockaddr_in address;
-    int opt = 1;
-    int addrlen = sizeof(address);
-    char buffer[1024] = {0};
-    char char_array;
+    Tablero_Servidor* tablero=&Tablero_Servidor::getInstance();
+    TraductorServidor* traductor =&TraductorServidor::getInstance();
     struct sockaddr_in serv_addr;
-    char *hello="hola guapo";
     Socket();
     int codigo_global=100000;
-    int codigo=100000;
     map<int,sala*> partidas;
-    int puerto=8080;
+    int PuertoSala=8080;
 public:
     static Socket & getInstance(){
         static Socket instance;
         return instance;
     }
-
-    int enviar(string Mensaje,int puerto,string ip);
-    void escuchar_sala(string Mensaje,int puerto,string ip);
-    void escuchar_partida(int puerto,sala * partida);
-    void prueba(char *mensaje,int puerto);
     void escuchar_sala2(int puerto);
     void enviar2(string mnsaje,int puerto,string ip);
     void escuchar_partida2(int puerto, sala* SalaActual);

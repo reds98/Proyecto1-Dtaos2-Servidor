@@ -1,18 +1,4 @@
 #include "bolsa.h"
-#include <cstdlib>
-#include "iostream"
-#include <ctime>
-#include <array>
-using namespace std;
-int Bolsa::getCantidad_total() const
-{
-    return cantidad_total;
-}
-
-void Bolsa::setCantidad_total(int value)
-{
-    cantidad_total = value;
-}
 
 string Bolsa::fichas_turno(int numero_de_fichas)
 {
