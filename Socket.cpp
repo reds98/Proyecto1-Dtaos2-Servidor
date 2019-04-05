@@ -129,14 +129,14 @@ void Socket::enviar2(string mensaje, int puerto, string ip)
         {
             printf("\nInvalid address/ Address not supported \n");
         }
+        qDebug()<<"JSON HACIA:"<<ip.c_str()<<puerto;
 
         if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
         {
             printf("\nConnection Failed \n");
         }
-        qDebug()<<"JSON ENVIADO A:"<<ip.c_str()<<puerto<<hello;
         send(sock , hello , strlen(hello) , 0 );
-        valread = read( sock , buffer, 1024);
+        qDebug()<<"JSON ENVIADO A:"<<ip.c_str()<<puerto<<hello;
 }
 
 void Socket::escuchar_partida2(int puerto, sala *SalaActual)

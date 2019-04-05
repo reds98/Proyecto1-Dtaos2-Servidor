@@ -19,12 +19,14 @@ private:
     string  Nombres[4];
     int Puntajes[4];
     int puerto;
+    int TurnoGlobal=0;
     Bolsa *Fichas_Totales;
     Tablero_Servidor* Tablero;
     int total_de_jugadores;
     int ultimo_jugador=0;
     void run();
     void empezar();
+
 public:
     bool Hay_campos();
     sala(int porto,int cantidad_de_jugadores);

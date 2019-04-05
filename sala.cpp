@@ -70,11 +70,15 @@ void sala::ResponderResto(string jason)
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();
-            canal->enviar2(jason,8079,Jugadores[i]);
+            canal->enviar2(jason,8080+TurnoGlobal,Jugadores[i]);
         }
     }
+    TurnoGlobal++;
     ultimo_jugador++;
-    if (ultimo_jugador>=total_de_jugadores) ultimo_jugador=0;
+    if (ultimo_jugador>=total_de_jugadores){
+        ultimo_jugador=0;
+        qDebug()<<"RONDA COMPLETA ";
+    }
 }
 
 void sala::SumarPuntaje(int puntos)

@@ -40,7 +40,11 @@ int main(int argc, char *argv[])
 //        printf("%s\n",buffer );
 //        return 0;
      Socket  *canal= &Socket::getInstance();
-//     canal->enviar2("#",8079,"192.168.100.9");
+//     for (int i=0;i<20;i++){
+//        canal->enviar2("#",7000+i,"192.168.100.10");
+//        canal->enviar2("#",7000+i,"192.168.100.9");
+//        qDebug()<<"$$"<<7000+i;
+//     }
 //    return 0;
      qDebug()<<"Se inicia el servidor";
     canal->escuchar_sala2(8080);
