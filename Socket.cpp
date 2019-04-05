@@ -199,7 +199,6 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
         bool val;
         val=Trad->getval(RespuestaPrincipal);
         if (val){
-            sleep(1);
             string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer);
             SalaActual->ResponderResto(RespuestaGeneral);
         }
