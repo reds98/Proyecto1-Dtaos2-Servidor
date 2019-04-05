@@ -36,7 +36,7 @@ Fichas_Totales=new Bolsa ();
 void sala::agregar_jugador(string ip,string nombre)
 {
     Jugadores[ultimo_jugador]=ip;
-    Nombre[ultimo_jugador]=nombre;
+    Nombres[ultimo_jugador]=nombre;
     ultimo_jugador++;
     if (ultimo_jugador==total_de_jugadores){
         this->start();
@@ -75,4 +75,9 @@ void sala::ResponderResto(string jason)
     }
     ultimo_jugador++;
     if (ultimo_jugador>=total_de_jugadores) ultimo_jugador=0;
+}
+
+void sala::SumarPuntaje(int puntos)
+{
+
 }

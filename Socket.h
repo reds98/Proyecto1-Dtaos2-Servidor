@@ -19,7 +19,6 @@ using namespace std;
 class Socket {
 private:
     TraductorServidor* traductor =&TraductorServidor::getInstance();
-    struct sockaddr_in serv_addr;
     Socket();
     int codigo_global=100000;
     map<int,sala*> partidas;
@@ -29,6 +28,8 @@ public:
         static Socket instance;
         return instance;
     }
+    void NuevaPalabra(string nueva);
+    void EliminarSala (int codigo);
     void escuchar_sala2(int puerto);
     void enviar2(string mnsaje,int puerto,string ip);
     void escuchar_partida2(int puerto, sala* SalaActual);

@@ -16,14 +16,13 @@ class sala:public QThread
 private:
     TraductorServidor traductor =TraductorServidor::getInstance();
     string  Jugadores[4];
-    string  Nombre[4];
+    string  Nombres[4];
     int Puntajes[4];
     int puerto;
     Bolsa *Fichas_Totales;
     Tablero_Servidor* Tablero;
     int total_de_jugadores;
     int ultimo_jugador=0;
-
     void run();
     void empezar();
 public:
@@ -31,6 +30,7 @@ public:
     sala(int porto,int cantidad_de_jugadores);
     void agregar_jugador(string ip,string nombre);
     void ResponderResto(string jason);
+    void SumarPuntaje(int puntos);
     Tablero_Servidor* getTablero();
     Bolsa* getBolsa();
 };

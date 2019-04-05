@@ -14,7 +14,6 @@ using namespace std;
 
 Tablero_Servidor::Tablero_Servidor()
 {
-    ListaPalabras=new LinkedList();
     for (int i=0;i<15;i++){
         for (int j=0;j<15;j++){
             if (i==j || i+j==14){
@@ -114,24 +113,24 @@ string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
         resumen_palabras+=*stmp+",";
     }
 
-    string s;
+    string repo;
     if (L->getT()>0){
         val=ValidarPalabras(L);
        // s=Bolsa::getInstance().fichas_turno(tam);
-        s=Total_Fichas->fichas_turno(tam);
+        repo=Total_Fichas->fichas_turno(tam);
     }
     else {
         val=false;
-        s="";
+        repo="";
     }
     bool hayfichas;
-    if (s.length()==tam){
+    if (repo!=""){
         hayfichas=true;
     }
     else{
         hayfichas=false;
     }
-    return T.SerializarRespuestaTurnoPropio(val,hayfichas,PuntajeFichas(),s,resumen_palabras);
+    return T.SerializarRespuestaTurnoPropio(val,hayfichas,PuntajeFichas(),repo,resumen_palabras);
 }
 /**
  * @brief Tablero_Servidor::AgregarPerpendiculares Agrega a una lista palabras perpendiculares a la principal
@@ -347,6 +346,7 @@ LinkedList *Tablero_Servidor::CasoUnaFicha()
     if(stmp->length()>1){
         cout<<"Palabra 1: "<<*stmp<<endl;
         L->Add(stmp);
+        resumen_palabras+=*stmp+", ";
     }
 
     tmp=MenorDesdeTablero(false,fila,columna);

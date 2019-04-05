@@ -15,6 +15,8 @@ class Tablero_Servidor
 
 private:
     char FichasColocadas[15][15];
+    int PosEspeciales[15][15];
+
     char LetrasJugadas[7];
     int FilasJugadas[7];
     int ColumnasJugadas[7];
@@ -23,10 +25,8 @@ private:
     int menor;
     int mayor;
     int ref;
-    LinkedList* ListaPalabras;
-    int PosEspeciales[15][15];
-
     string resumen_palabras="";
+
     void ColocarFichas();
     void AgregarPerpendiculares(LinkedList* L);
     void ColocarFichaManual(char letra,int fila, int columna);

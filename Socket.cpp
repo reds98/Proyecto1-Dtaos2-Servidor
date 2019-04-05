@@ -3,6 +3,16 @@
 Socket::Socket() {
 }
 
+void Socket::NuevaPalabra(string nueva)
+{
+
+}
+
+void Socket::EliminarSala(int codigo)
+{
+
+}
+
 void Socket::escuchar_sala2(int puerto)
 {
         int server_fd, new_socket, valread;
