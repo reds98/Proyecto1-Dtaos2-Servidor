@@ -81,6 +81,7 @@ string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
     LinkedList* L;
     bool val;
     TraductorServidor T=TraductorServidor::getInstance();
+    resumen_palabras="";
     if(tam==1){
         L=CasoUnaFicha();
     }

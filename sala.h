@@ -14,27 +14,25 @@ using namespace std;
 class sala:public QThread
 {
 private:
-    Tablero_Servidor *Tablero;
     TraductorServidor traductor =TraductorServidor::getInstance();
     string  Jugadores[4];
     string  Nombre[4];
-    QThread hola;
+    int Puntajes[4];
     int puerto;
     Bolsa *Fichas_Totales;
-    void run();
+    Tablero_Servidor* Tablero;
     int total_de_jugadores;
     int ultimo_jugador=0;
+
+    void run();
+    void empezar();
 public:
-     Tablero_Servidor* getTablero();
+    bool Hay_campos();
     sala(int porto,int cantidad_de_jugadores);
-     void agregar_jugador(string ip,string nombre);
-     string Dame_ip(int valor );
-     void empezar();
-     bool Hay_campos();
-     int get_turno();
-     int get_puerto();
-     Bolsa* getBolsa();
-     void ResponderResto(string jason);
+    void agregar_jugador(string ip,string nombre);
+    void ResponderResto(string jason);
+    Tablero_Servidor* getTablero();
+    Bolsa* getBolsa();
 };
 
 

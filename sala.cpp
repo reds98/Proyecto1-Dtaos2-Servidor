@@ -43,10 +43,6 @@ void sala::agregar_jugador(string ip,string nombre)
     }
 }
 
-string sala::Dame_ip(int valor)
-{
-    return Jugadores[valor];
-}
 
 void sala::empezar()
 {
@@ -61,11 +57,6 @@ bool sala::Hay_campos()
     else{
         return true;
     }
-}
-
-int sala::get_puerto()
-{
-    return puerto;
 }
 
 Bolsa *sala::getBolsa()

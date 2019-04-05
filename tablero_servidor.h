@@ -12,8 +12,8 @@ using namespace std;
 
 class Tablero_Servidor
 {
-private:
 
+private:
     char FichasColocadas[15][15];
     char LetrasJugadas[7];
     int FilasJugadas[7];
@@ -25,27 +25,24 @@ private:
     int ref;
     LinkedList* ListaPalabras;
     int PosEspeciales[15][15];
+
     string resumen_palabras="";
-public:
-    Tablero_Servidor();
-    static Tablero_Servidor& getInstance(){
-        static Tablero_Servidor instance;
-        return instance;
-    }
     void ColocarFichas();
-    string LeerPalabras(Bolsa* Total_Fichas);
     void AgregarPerpendiculares(LinkedList* L);
     void ColocarFichaManual(char letra,int fila, int columna);
     int MenorDesdeTablero(bool VaHorizontal,int fila, int columna);
     string* Leer(bool VaHorizontal,int fila,int columna);
     void print();
-    void Desempaquetar(string s);
     int SumaParcial(int a,int t);
     bool ValidarPalabras(LinkedList* L);
     bool Validar(string* s);
     void Limpiar();
     LinkedList* CasoUnaFicha();
     int PuntajeFichas();
+public:
+    Tablero_Servidor();
+    void Desempaquetar(string s);
+    string LeerPalabras(Bolsa* Total_Fichas);
 };
 
 #endif // TABLERO_SERVIDOR_H

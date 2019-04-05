@@ -18,7 +18,6 @@ using namespace std;
 
 class Socket {
 private:
-    Tablero_Servidor* tablero=&Tablero_Servidor::getInstance();
     TraductorServidor* traductor =&TraductorServidor::getInstance();
     struct sockaddr_in serv_addr;
     Socket();
