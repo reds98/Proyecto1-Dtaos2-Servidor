@@ -10,7 +10,7 @@ void sala::run()
     for (int i=0;i<total_de_jugadores;i++){
         string jsontmp=traductor.SerializarRespuestaUnirseSala(Fichas_Totales->fichas_turno(7),i,puerto,total_de_jugadores);
         qDebug()<<"JASON PARA INICIAR JUEGO: "<<jsontmp.c_str();
-        canal->enviar2(jsontmp,8082,Jugadores[i]);
+        canal->enviar2(jsontmp,8078,Jugadores[i]);
     }
     qDebug()<<"INICIO DE PARTIDA";
     for (int i=0;i<total_de_jugadores;i++){
@@ -70,7 +70,7 @@ void sala::ResponderResto(string jason)
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();
-            canal->enviar2(jason,8083,Jugadores[i]);
+            canal->enviar2(jason,8079,Jugadores[i]);
         }
     }
     ultimo_jugador++;

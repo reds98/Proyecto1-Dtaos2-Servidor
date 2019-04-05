@@ -108,11 +108,12 @@ void Socket::escuchar_sala2(int puerto)
 
 void Socket::enviar2(string mensaje, int puerto, string ip)
 {
-        struct sockaddr_in address;
-        int sock = 0;
+    struct sockaddr_in address;
+        int sock = 0, valread;
         struct sockaddr_in serv_addr;
         char hello[mensaje.length()+1];
-        strcpy(hello, mensaje.c_str());
+        strcpy(hello,mensaje.c_str());
+        char buffer[1024] = {0};
         if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
         {
             printf("\n Socket creation error \n");
@@ -128,16 +129,14 @@ void Socket::enviar2(string mensaje, int puerto, string ip)
         {
             printf("\nInvalid address/ Address not supported \n");
         }
-        qDebug()<<"IP A USAR: "<<ip.c_str();
 
         if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
         {
-            qDebug()<<"\nConnection Failed \n"<<hello;
+            printf("\nConnection Failed \n");
         }
-
-        qDebug()<<"ENVIANDO: "<<hello;
+        qDebug()<<"JSON ENVIADO A:"<<ip.c_str()<<puerto<<hello;
         send(sock , hello , strlen(hello) , 0 );
-        //close(sock);
+        valread = read( sock , buffer, 1024);
 }
 
 void Socket::escuchar_partida2(int puerto, sala *SalaActual)
@@ -200,10 +199,10 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
         bool val;
         val=Trad->getval(RespuestaPrincipal);
         if (val){
+            sleep(1);
             string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer);
             SalaActual->ResponderResto(RespuestaGeneral);
         }
-
         close(new_socket);
     }
 }
