@@ -33,6 +33,7 @@ public:
     void escuchar_sala2(int puerto);
     void enviar2(string mnsaje,int puerto,string ip);
     void escuchar_partida2(int puerto, sala* SalaActual);
+    string escuchar2(int puerto);
 };
 
 

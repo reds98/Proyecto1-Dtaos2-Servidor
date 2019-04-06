@@ -24,17 +24,23 @@ private:
     Tablero_Servidor* Tablero;
     int total_de_jugadores;
     int ultimo_jugador=0;
+    int PasoSucesivo;
+    int codigo;
+
     void run();
     void empezar();
 
 public:
     bool Hay_campos();
-    sala(int porto,int cantidad_de_jugadores);
+    sala(int porto,int cantidad_de_jugadores,int codigo);
     void agregar_jugador(string ip,string nombre);
     void ResponderResto(string jason);
     void SumarPuntaje(int puntos);
     Tablero_Servidor* getTablero();
     Bolsa* getBolsa();
+    void print();
+    string IncrementarPaso();
+    int getCodigo() const;
 };
 
 

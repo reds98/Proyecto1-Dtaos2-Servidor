@@ -2,6 +2,11 @@
 #include "sala.h"
 
 using namespace std;
+int sala::getCodigo() const
+{
+    return codigo;
+}
+
 void sala::run()
 {
     qDebug()<<"INCIANDO TURNOS";
@@ -17,6 +22,7 @@ void sala::run()
         qDebug()<<Jugadores[i].c_str();
     }
     ultimo_jugador=0;
+    print();
     canal->escuchar_partida2(puerto,this);
 }
 
@@ -64,9 +70,39 @@ Bolsa *sala::getBolsa()
     return Fichas_Totales;
 }
 
+void sala::print()
+{
+    for (int i=0;i<4;i++){
+        cout<<"Jugador: "<<Nombres[i]<<", ";
+        cout<<"Puntaje: "<<Puntajes[i]<<", ";
+        cout<<"Ip: "<<Jugadores[i]<<endl;
+    }
+}
+
+string sala::IncrementarPaso()
+{
+    PasoSucesivo++;
+    qDebug()<<"PASO SUCESIVO: "<<PasoSucesivo;
+    if (PasoSucesivo==total_de_jugadores){
+        int index;
+        int mayor=0;
+        for (int i;i<4;i++){
+            if (Puntajes[i]>mayor){
+                mayor=Puntajes[i];
+                index=i;
+            }
+        }
+        return Nombres[index];
+    }
+    return "";
+}
+
+
+
 void sala::ResponderResto(string jason)
 {
     Socket  *canal= &Socket::getInstance();
+    PasoSucesivo=0;
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();
@@ -77,11 +113,12 @@ void sala::ResponderResto(string jason)
     ultimo_jugador++;
     if (ultimo_jugador>=total_de_jugadores){
         ultimo_jugador=0;
+        print();
         qDebug()<<"RONDA COMPLETA ";
     }
 }
 
 void sala::SumarPuntaje(int puntos)
 {
-
+    Puntajes[ultimo_jugador]+=puntos;
 }

@@ -77,6 +77,7 @@ void Tablero_Servidor::ColocarFichas()
  */
 string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
 {
+    if (tam==0) return "";
     LinkedList* L;
     bool val;
     TraductorServidor T=TraductorServidor::getInstance();
@@ -124,7 +125,7 @@ string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
         repo="";
     }
     bool hayfichas;
-    if (repo!=""){
+    if (repo!="0000000"){
         hayfichas=true;
     }
     else{

@@ -18,15 +18,16 @@ public:
     }
     void DeserializarFichasJugadas(string json, int* tam,bool* EsHorizontal, char* letras,int* filas,int* columnas);
     string SerializarRespuestaTurnoPropio(bool val, bool hayfichas,int puntos, string repo,string resumen);
-    string SerializarRespuestaTurnoAjeno(string json);
+    string SerializarRespuestaTurnoAjeno(string json,string ganador);
+
     int getID(string json);
     bool getval(string json);
-
     string getPalabra(string json);
+    int getPuntos(string json);
 
     void DeserializarCrearSala(string json,string* ip,string* nombre,int *tsala);
     string SerializarRespuestaCrearSala( int codigo);
-     string SerializarRespuestaUnirseSala(string inciales, int turno,int puerto,int tsala);
+    string SerializarRespuestaUnirseSala(string inciales, int turno,int puerto,int tsala);
     void DeserializarUnirseSala(string json,string* ip,string* nombre,int * codigo);
 };
 

@@ -42,18 +42,17 @@ string TraductorServidor::SerializarRespuestaTurnoPropio(bool val, bool hayficha
     return buffer.GetString();
 }
 
-string TraductorServidor::SerializarRespuestaTurnoAjeno(string json)
+string TraductorServidor::SerializarRespuestaTurnoAjeno(string json,string ganador)
 {
     Document d;
     d.Parse(json.c_str());
     StringBuffer buffer;
     d.RemoveMember("id");
     d.RemoveMember("horizontal");
-
+    if (ganador!="") d["letras"].SetString(ganador.c_str(),sizeof(char)*ganador.length());
     Writer<StringBuffer> writer(buffer);
     d.Accept(writer);
     return buffer.GetString();
-
 }
 
 int TraductorServidor::getID(string json)
@@ -75,6 +74,13 @@ string TraductorServidor::getPalabra(string json)
     Document d;
     d.Parse(json.c_str());
     return d["palabra"].GetString();
+}
+
+int TraductorServidor::getPuntos(string json)
+{
+    Document d;
+    d.Parse(json.c_str());
+    return d["puntos"].GetInt();
 }
 
 void TraductorServidor::DeserializarCrearSala(string json, string *ip,string* nombre,int *tsala)
@@ -127,4 +133,5 @@ void TraductorServidor::DeserializarUnirseSala(string json, string *ip, string *
 
 
 }
+
 
