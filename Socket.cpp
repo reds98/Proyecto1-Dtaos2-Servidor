@@ -5,6 +5,17 @@ Socket::Socket() {
 
 void Socket::NuevaPalabra(string nueva)
 {
+    QFile file("qrc:/txt/words_alpha.txt");
+    if (!file.exists()){
+        qDebug()<<"Error, no existe el archivo";
+    }
+    else{
+        file.open(QFile::Append);
+        QString nuevaP = QString::fromStdString (nueva);
+        QTextStream stream(&file);
+        stream << nuevaP << endl;
+        file.close();
+    }
 
 }
 
