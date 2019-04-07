@@ -210,11 +210,7 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
                 EliminarSala(SalaActual->getCodigo());
                 return;
             }
-
         }
-
-        qDebug()<<"JASON PARTIDA ENVIADO: "<<RespuestaPrincipal.c_str();
-        send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
 
         bool val;
         val=Trad->getval(RespuestaPrincipal);
@@ -230,7 +226,12 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
             if(PalabraCliente!=""){
                 NuevaPalabra(PalabraCliente);
             }
+            RespuestaPrincipal=Trad->setHayfichas(RespuestaPrincipal,true);
         }
+
+        qDebug()<<"JASON PARTIDA ENVIADO: "<<RespuestaPrincipal.c_str();
+        send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
+
         close(new_socket);
     }
 }

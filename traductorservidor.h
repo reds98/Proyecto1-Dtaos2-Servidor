@@ -24,6 +24,7 @@ public:
     bool getval(string json);
     string getPalabra(string json);
     int getPuntos(string json);
+    string setHayfichas(string json,bool hayfichas);
 
     void DeserializarCrearSala(string json,string* ip,string* nombre,int *tsala);
     string SerializarRespuestaCrearSala( int codigo);

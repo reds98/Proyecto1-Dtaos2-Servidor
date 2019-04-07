@@ -83,6 +83,17 @@ int TraductorServidor::getPuntos(string json)
     return d["puntos"].GetInt();
 }
 
+string TraductorServidor::setHayfichas(string json,bool hayfichas)
+{
+    Document d;
+    d.Parse(json.c_str());
+    StringBuffer buffer;
+    d["hayfichas"].SetBool(hayfichas);
+    Writer<StringBuffer> writer(buffer);
+    d.Accept(writer);
+    return buffer.GetString();
+}
+
 void TraductorServidor::DeserializarCrearSala(string json, string *ip,string* nombre,int *tsala)
 {
     Document d;
