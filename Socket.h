@@ -22,7 +22,7 @@ private:
     Socket();
     int codigo_global=100000;
     map<int,sala*> partidas;
-    int PuertoSala=7000;
+    int PuertoSala=8081;
 public:
     static Socket & getInstance(){
         static Socket instance;
