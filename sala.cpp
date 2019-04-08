@@ -22,7 +22,7 @@ void sala::run()
         qDebug()<<Jugadores[i].c_str();
     }
     ultimo_jugador=0;
-    print();
+    qDebug()<<puerto<<"$$$";
     canal->escuchar_partida2(puerto,this);
 }
 
@@ -31,11 +31,12 @@ Tablero_Servidor* sala::getTablero()
     return Tablero;
 }
 
-sala::sala(int porto,int cantidad_de_jugadores)
+sala::sala(int porto,int cantidad_de_jugadores,int codigo)
 {
 Tablero=new Tablero_Servidor ();
 total_de_jugadores=cantidad_de_jugadores;
 puerto=porto;
+this->codigo=codigo;
 Fichas_Totales=new Bolsa ();
 }
 
@@ -84,7 +85,7 @@ string sala::IncrementarPaso()
     PasoSucesivo++;
     qDebug()<<"PASO SUCESIVO: "<<PasoSucesivo;
     if (PasoSucesivo==total_de_jugadores){
-        int index;
+        int index=0;
         int mayor=0;
         for (int i;i<4;i++){
             if (Puntajes[i]>mayor){
@@ -106,7 +107,7 @@ void sala::ResponderResto(string jason)
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();
-            canal->enviar2(jason,8080+TurnoGlobal,Jugadores[i]);
+            canal->enviar2(jason,puerto+TurnoGlobal,Jugadores[i]);
         }
     }
     TurnoGlobal++;

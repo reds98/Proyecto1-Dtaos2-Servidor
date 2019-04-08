@@ -67,9 +67,6 @@ void Tablero_Servidor::ColocarFichas()
         }
     }
 
-    cout<<"Menor: "<<menor<<endl;
-    cout<<"Mayor: "<<mayor<<endl;
-    cout<<"Ref: "<<ref<<endl;
 }
 /**
  * @brief Tablero_Servidor::LeerPalabras Coloca y lee todas las palabras nuevas formadas
@@ -108,7 +105,6 @@ string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
             cout<<"La palabra no conecta con otras "<<*stmp<<endl;
         }
 
-        cout<<"Palabra principal: "<<*stmp<<endl;
         L->Add(stmp);
         AgregarPerpendiculares(L);
         resumen_palabras+=*stmp+",";
@@ -118,7 +114,7 @@ string Tablero_Servidor::LeerPalabras( Bolsa*  Total_Fichas)
     if (L->getT()>0){
         val=ValidarPalabras(L);
        // s=Bolsa::getInstance().fichas_turno(tam);
-        repo=Total_Fichas->fichas_turno(tam);
+        if (val) repo=Total_Fichas->fichas_turno(tam);
     }
     else {
         val=false;
@@ -155,7 +151,6 @@ void Tablero_Servidor::AgregarPerpendiculares(LinkedList *L)
             stmp=Leer(true,fila,tmp);
         }
         if (stmp->length()<2) continue;
-        cout<<"Palabra perpendicular: "<<*stmp<<endl;
         resumen_palabras+=*stmp+",";
         L->Add(stmp);
     }

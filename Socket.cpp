@@ -69,13 +69,16 @@ void Socket::escuchar_sala2(int puerto)
                 int tsala=0;
                 traductor->DeserializarCrearSala(peticion,&ip,&nombre,&tsala);
 
-                sala * sala1= new sala(++PuertoSala,tsala);
+                sala * sala1= new sala(PuertoSala,tsala,codigo_global);
                 sala1->agregar_jugador(ip,nombre);
                 partidas.insert(make_pair(codigo_global,sala1));
 
-                string respuesta=traductor->SerializarRespuestaCrearSala(codigo_global++);
+                string respuesta=traductor->SerializarRespuestaCrearSala(codigo_global);
                 qDebug()<<"JASON RESPONDIDO: "<<respuesta.c_str();
                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
+
+                PuertoSala+=100;
+                codigo_global++;
 
             }
             else if(id==1){
@@ -186,12 +189,13 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
         valread = read( new_socket , buffer, 1024);
 
         string FichasJugadas=  string(buffer);
-        qDebug()<<"JASON DE PARTIDA: "<<buffer;
+        qDebug()<<"JASON ENTRANTE PARTIDA: "<<buffer;
 
         Tablero_Servidor* TS=SalaActual->getTablero();
         TraductorServidor* Trad=&TraductorServidor::getInstance();
         TS->Desempaquetar(FichasJugadas);
         string RespuestaPrincipal=TS->LeerPalabras(SalaActual->getBolsa());
+        qDebug()<<"JSON RESPUESTA PRINCIPAL: "<<RespuestaPrincipal.c_str();
 
         if (RespuestaPrincipal==""){
             string ganador="";
@@ -214,23 +218,30 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
 
         bool val;
         val=Trad->getval(RespuestaPrincipal);
+
+
         if (val){
             string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer,"");
             SalaActual->ResponderResto(RespuestaGeneral);
             int puntos=Trad->getPuntos(RespuestaPrincipal);
             SalaActual->SumarPuntaje(puntos);
+            send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
         }
         else{
-            string RespuestaClienteJson=escuchar2(7001);
+            send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
+            string RespuestaClienteJson=escuchar2(8079);
             string PalabraCliente=Trad->getPalabra(RespuestaClienteJson);
+            qDebug()<<"JSON ENTRANTE TURNOFALLIDO: "<<RespuestaClienteJson.c_str();
             if(PalabraCliente!=""){
                 NuevaPalabra(PalabraCliente);
             }
             RespuestaPrincipal=Trad->setHayfichas(RespuestaPrincipal,true);
         }
 
+
+
         qDebug()<<"JASON PARTIDA ENVIADO: "<<RespuestaPrincipal.c_str();
-        send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
+
 
         close(new_socket);
     }
