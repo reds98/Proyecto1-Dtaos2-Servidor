@@ -13,6 +13,7 @@
 #include <string.h>
 #include <bits/stdc++.h>
 #include "qdebug.h"
+#include <QFile>
 #define PORT 8080
 using namespace std;
 
