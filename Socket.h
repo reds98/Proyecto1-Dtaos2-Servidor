@@ -29,11 +29,39 @@ public:
         static Socket instance;
         return instance;
     }
+    /**
+     * @brief NuevaPalabra añade nueva palabra al diccionario
+     * @param nueva
+     */
     void NuevaPalabra(string nueva);
+    /**
+     * @brief EliminarSala elimina una sala
+     * @param codigo
+     */
     void EliminarSala (int codigo);
+    /**
+     * @brief escuchar_sala2 escucha para crear o unirse a salas
+     * @param puerto
+     */
     void escuchar_sala2(int puerto);
+    /**
+     * @brief enviar2 envía uuna string cualquiera
+     * @param mnsaje
+     * @param puerto
+     * @param ip
+     */
     void enviar2(string mnsaje,int puerto,string ip);
+    /**
+     * @brief escuchar_partida2 escucha a jugadores dentro de una partida
+     * @param puerto
+     * @param SalaActual
+     */
     void escuchar_partida2(int puerto, sala* SalaActual);
+    /**
+     * @brief escuchar2 escucha un puerto cualquiera
+     * @param puerto
+     * @return la string recibida
+     */
     string escuchar2(int puerto);
 };
 

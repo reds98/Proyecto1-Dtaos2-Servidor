@@ -45,7 +45,9 @@ int main(int argc, char *argv[])
 //        canal->enviar2("#",7000+i,"192.168.100.9");
 //        qDebug()<<"$$"<<7000+i;
 //     }
-//    return 0;
+//    return 0
+//     canal->enviar2("PalabraCliente",8080,"192.168.100.8");
+//     return 0;
      qDebug()<<"Se inicia el servidor";
     canal->escuchar_sala2(8080);
     return 0;

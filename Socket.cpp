@@ -251,10 +251,11 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
             string PalabraCliente=Trad->getPalabra(RespuestaClienteJson);
             qDebug()<<"JSON ENTRANTE TURNO FALLIDO: "<<RespuestaClienteJson.c_str();
             if(PalabraCliente!=""){
-                    enviar2(PalabraCliente,8080,"192.168.100.8");
-                    string confirmacion=escuchar2(8079);
-                    qDebug()<<confirmacion.c_str();
-                    //NuevaPalabra(PalabraCliente);
+                sleep(2);
+                enviar2(PalabraCliente,8080,"192.168.100.8");
+                string confirmacion=escuchar2(8079);
+                qDebug()<<confirmacion.c_str();
+                //NuevaPalabra(PalabraCliente);
             }
         }
 

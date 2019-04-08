@@ -30,15 +30,33 @@ private:
     void run();
     void empezar();
 public:
-    void AumentarPuerto();
+    /**
+     * @brief Hay_campos busca campos
+     * @return true si hay campos
+     */
     bool Hay_campos();
-    sala(int porto,int cantidad_de_jugadores,int codigo);
+    sala(int porto,int cantidad_de_jugadores,int codigo);/**
+     * @brief agregar_jugador añade un jugador
+     * @param ip
+     * @param nombre
+     */
     void agregar_jugador(string ip,string nombre);
+    /**
+     * @brief ResponderResto envia un mensaje a todos los jugadores menos uno
+     * @param jason
+     */
     void ResponderResto(string jason);
+    /**
+     * @brief SumarPuntaje añade puntaje al ultimo jugador
+     * @param puntos
+     */
     void SumarPuntaje(int puntos);
+    /**
+     * @brief print imprime valores clave de los jugadores
+     */
+    void print();
     Tablero_Servidor* getTablero();
     Bolsa* getBolsa();
-    void print();
     string IncrementarPaso();
     int getCodigo() const;
     void ReiniciarSucesivo();
