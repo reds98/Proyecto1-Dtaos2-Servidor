@@ -216,6 +216,7 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
                 send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
                 string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer,"");
                 SalaActual->ResponderResto(RespuestaGeneral);
+                 close(server_fd);
                 return;
             }
             else{
@@ -226,6 +227,7 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
                 json=Trad->SerializarRespuestaTurnoAjeno(buffer,ganador);
                 SalaActual->ResponderResto(json);
                 EliminarSala(SalaActual->getCodigo());
+                 close(server_fd);
                 return;
             }
         }
@@ -255,8 +257,9 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
 
         qDebug()<<"JASON PARTIDA ENVIADO: "<<RespuestaPrincipal.c_str();
 
-        close(server_fd);
+
     }
+     close(server_fd);
 }
 
 string Socket::escuchar2(int puerto)
