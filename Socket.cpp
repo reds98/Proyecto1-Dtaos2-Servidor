@@ -88,7 +88,7 @@ void Socket::escuchar_sala2(int puerto)
                 qDebug()<<"JASON RESPONDIDO: "<<respuesta.c_str();
                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
 
-                PuertoSala+=100;
+                PuertoSala+=1;
                 codigo_global++;
 
             }
@@ -113,9 +113,7 @@ void Socket::escuchar_sala2(int puerto)
                 qDebug()<<"JASON RESPONDIDO: "<<respuesta.c_str();
                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
             }
-
-            close(new_socket);
-
+            //close(server_fd);
         }
 
 }
@@ -192,8 +190,9 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    while ((new_socket = accept(server_fd, (struct sockaddr *)&address,
-                       (socklen_t*)&addrlen))>=0)
+    qDebug()<<"PRE ESCUCHAR";
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
+                             (socklen_t*)&addrlen))>=0)
     {
         memset(buffer,0,1024);
 
@@ -204,6 +203,7 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
 
         Tablero_Servidor* TS=SalaActual->getTablero();
         TraductorServidor* Trad=&TraductorServidor::getInstance();
+        qDebug()<<"&&&";
         TS->Desempaquetar(FichasJugadas);
         string RespuestaPrincipal=TS->LeerPalabras(SalaActual->getBolsa());
         qDebug()<<"JSON RESPUESTA PRINCIPAL: "<<RespuestaPrincipal.c_str();
@@ -216,7 +216,7 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
                 send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
                 string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer,"");
                 SalaActual->ResponderResto(RespuestaGeneral);
-                continue;
+                return;
             }
             else{
                 qDebug()<<"FIN DEL JUEGO POR PASOS";
@@ -242,22 +242,20 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
             send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
         }
         else{
+            RespuestaPrincipal=Trad->setHayfichas(RespuestaPrincipal,true);
             send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
-            string RespuestaClienteJson=escuchar2(8079);
+            qDebug()<<"PUERTO ESCUCHAR NUEVO INTENTO: "<<SalaActual->getPuerto();
+            string RespuestaClienteJson=escuchar2(SalaActual->getPuerto());
             string PalabraCliente=Trad->getPalabra(RespuestaClienteJson);
-            qDebug()<<"JSON ENTRANTE TURNOFALLIDO: "<<RespuestaClienteJson.c_str();
+            qDebug()<<"JSON ENTRANTE TURNO FALLIDO: "<<RespuestaClienteJson.c_str();
             if(PalabraCliente!=""){
                 NuevaPalabra(PalabraCliente);
             }
-            RespuestaPrincipal=Trad->setHayfichas(RespuestaPrincipal,true);
         }
-
-
 
         qDebug()<<"JASON PARTIDA ENVIADO: "<<RespuestaPrincipal.c_str();
 
-
-        close(new_socket);
+        close(server_fd);
     }
 }
 
@@ -306,5 +304,6 @@ string Socket::escuchar2(int puerto)
         exit(EXIT_FAILURE);
     }
     valread = read( new_socket , buffer, 1024);
+    close(server_fd);
     return buffer;
 }

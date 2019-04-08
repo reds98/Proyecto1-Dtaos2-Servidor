@@ -29,8 +29,8 @@ private:
 
     void run();
     void empezar();
-
 public:
+    void AumentarPuerto();
     bool Hay_campos();
     sala(int porto,int cantidad_de_jugadores,int codigo);
     void agregar_jugador(string ip,string nombre);
@@ -42,6 +42,8 @@ public:
     string IncrementarPaso();
     int getCodigo() const;
     void ReiniciarSucesivo();
+    int getPuerto() const;
+    void setPuerto(int value);
 };
 
 

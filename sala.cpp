@@ -12,6 +12,16 @@ void sala::ReiniciarSucesivo()
     PasoSucesivo=0;
 }
 
+int sala::getPuerto() const
+{
+    return puerto;
+}
+
+void sala::setPuerto(int value)
+{
+    puerto = value;
+}
+
 void sala::run()
 {
     qDebug()<<"INCIANDO TURNOS";
@@ -20,7 +30,7 @@ void sala::run()
     for (int i=0;i<total_de_jugadores;i++){
         string jsontmp=traductor.SerializarRespuestaUnirseSala(Fichas_Totales->fichas_turno(7),i,puerto,total_de_jugadores);
         qDebug()<<"JASON PARA INICIAR JUEGO: "<<jsontmp.c_str();
-        canal->enviar2(jsontmp,8078,Jugadores[i]);
+        canal->enviar2(jsontmp,8080,Jugadores[i]);
     }
     qDebug()<<"INICIO DE PARTIDA";
     for (int i=0;i<total_de_jugadores;i++){
@@ -28,7 +38,9 @@ void sala::run()
     }
     ultimo_jugador=0;
     qDebug()<<puerto<<"$$$";
-    canal->escuchar_partida2(puerto,this);
+    while(true){
+        canal->escuchar_partida2(puerto,this);
+    }
 }
 
 Tablero_Servidor* sala::getTablero()
@@ -60,6 +72,7 @@ void sala::empezar()
 {
     this->start();
 }
+
 
 bool sala::Hay_campos()
 {
@@ -111,7 +124,7 @@ void sala::ResponderResto(string jason)
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();
-            canal->enviar2(jason,puerto+TurnoGlobal,Jugadores[i]);
+            canal->enviar2(jason,puerto,Jugadores[i]);
         }
     }
     TurnoGlobal++;

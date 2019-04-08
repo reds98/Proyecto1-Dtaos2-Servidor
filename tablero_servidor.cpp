@@ -266,7 +266,7 @@ int Tablero_Servidor::SumaParcial(int a, int t)
  */
 bool Tablero_Servidor::ValidarPalabras(LinkedList *L)
 {
-    return true;
+    //return true;
     Node* tmp=L->getFirst();
     string* s;
     cout<<"VALIDANDO: ";
@@ -350,6 +350,7 @@ LinkedList *Tablero_Servidor::CasoUnaFicha()
     if(stmp->length()>1){
         cout<<"Palabra 2: "<<*stmp<<endl;
         L->Add(stmp);
+        resumen_palabras+=*stmp+", ";
     }
     return L;
 }
