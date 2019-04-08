@@ -124,7 +124,7 @@ void sala::ResponderResto(string jason)
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();
-            canal->enviar2(jason,puerto,Jugadores[i]);
+            canal->enviar2(jason,puerto+1,Jugadores[i]);
         }
     }
     TurnoGlobal++;

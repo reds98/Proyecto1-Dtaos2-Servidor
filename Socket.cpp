@@ -88,7 +88,7 @@ void Socket::escuchar_sala2(int puerto)
                 qDebug()<<"JASON RESPONDIDO: "<<respuesta.c_str();
                 send(new_socket , respuesta.c_str() , strlen(respuesta.c_str()) , 0 );
 
-                PuertoSala+=1;
+                PuertoSala+=2;
                 codigo_global++;
 
             }
