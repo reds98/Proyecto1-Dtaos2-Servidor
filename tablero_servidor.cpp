@@ -302,7 +302,11 @@ bool Tablero_Servidor::Validar(string *s)
         while (!stream.atEnd()){
             line = stream.readLine();
             if(*s==line.toUtf8().constData()){
+                qDebug()<<"Check:"<<line;
                 return true;
+            }
+            else{
+                qDebug()<<"P:"<<line;
             }
         }
         file.flush();

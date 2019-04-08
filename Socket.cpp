@@ -5,7 +5,7 @@ Socket::Socket() {
 
 void Socket::NuevaPalabra(string nueva)
 {
-    QFile file("qrc:/txt/words_alpha.txt");
+    QFile file("/home/juan/Qt Proyects/Proyecto1-Dtaos2-Servidor/words_alpha.txt");
     if (!file.exists()){
         qDebug()<<"Error, no existe el archivo";
     }
@@ -148,6 +148,7 @@ void Socket::enviar2(string mensaje, int puerto, string ip)
             printf("\nConnection Failed \n");
         }
         send(sock , hello , strlen(hello) , 0 );
+        close(sock);
         qDebug()<<"JSON ENVIADO A:"<<ip.c_str()<<puerto<<hello;
 }
 
@@ -246,16 +247,19 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
         else{
             RespuestaPrincipal=Trad->setHayfichas(RespuestaPrincipal,true);
             send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
-            qDebug()<<"PUERTO ESCUCHAR NUEVO INTENTO: "<<SalaActual->getPuerto();
-            string RespuestaClienteJson=escuchar2(SalaActual->getPuerto());
+            qDebug()<<"PUERTO ESCUCHAR NUEVO INTENTO: "<<8078;
+            string RespuestaClienteJson=escuchar2(8078);
             string PalabraCliente=Trad->getPalabra(RespuestaClienteJson);
             qDebug()<<"JSON ENTRANTE TURNO FALLIDO: "<<RespuestaClienteJson.c_str();
             if(PalabraCliente!=""){
-                sleep(2);
-                enviar2(PalabraCliente,8080,"192.168.100.8");
+                enviar2(PalabraCliente,8070,"192.168.100.8");
                 string confirmacion=escuchar2(8079);
-                qDebug()<<confirmacion.c_str();
-                //NuevaPalabra(PalabraCliente);
+                string corte=confirmacion.substr(confirmacion.length()-3,2);
+                qDebug()<<corte.c_str();
+                if (corte=="SI"){
+                    qDebug()<<"SIIIIIII";
+                    NuevaPalabra(PalabraCliente);
+                }
             }
         }
 

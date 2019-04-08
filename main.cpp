@@ -46,9 +46,19 @@ int main(int argc, char *argv[])
 //        qDebug()<<"$$"<<7000+i;
 //     }
 //    return 0
-//     canal->enviar2("PalabraCliente",8080,"192.168.100.8");
+//     canal->enviar2("PalabraCliente77",8070,"192.168.100.8");
+//     string c=canal->escuchar2(8079);
+//     qDebug()<<"LLEGA: "<<c.c_str();
 //     return 0;
+
+     Tablero_Servidor* TS=new Tablero_Servidor();
+     string *s=new string("vxbd");
+     TS->Validar(s);
+     return 0;
+
+
      qDebug()<<"Se inicia el servidor";
+
     canal->escuchar_sala2(8080);
     return 0;
 }

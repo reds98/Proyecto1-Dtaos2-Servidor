@@ -77,7 +77,7 @@ private:
      * @param s
      * @return
      */
-    bool Validar(string* s);
+
     /**
      * @brief Limpiar
      */
@@ -102,6 +102,7 @@ public:
      * @return
      */
     string LeerPalabras(Bolsa* Total_Fichas);
+    bool Validar(string* s);
 };
 
 #endif // TABLERO_SERVIDOR_H
