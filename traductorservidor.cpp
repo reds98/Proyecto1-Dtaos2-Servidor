@@ -49,7 +49,11 @@ string TraductorServidor::SerializarRespuestaTurnoAjeno(string json,string ganad
     StringBuffer buffer;
     d.RemoveMember("id");
     d.RemoveMember("horizontal");
-    if (ganador!="") d["letras"].SetString(ganador.c_str(),sizeof(char)*ganador.length());
+    if (ganador!=""){
+        qDebug()<<json.c_str();
+        qDebug()<<"EL GANADOR COMUNICADO: "<<ganador.c_str();
+        d["ganador"].SetString(ganador.c_str(),sizeof (char)*ganador.length());
+    }
     Writer<StringBuffer> writer(buffer);
     d.Accept(writer);
     return buffer.GetString();

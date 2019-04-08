@@ -41,6 +41,7 @@ public:
     void print();
     string IncrementarPaso();
     int getCodigo() const;
+    void ReiniciarSucesivo();
 };
 
 

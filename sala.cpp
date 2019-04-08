@@ -7,6 +7,11 @@ int sala::getCodigo() const
     return codigo;
 }
 
+void sala::ReiniciarSucesivo()
+{
+    PasoSucesivo=0;
+}
+
 void sala::run()
 {
     qDebug()<<"INCIANDO TURNOS";
@@ -84,7 +89,7 @@ string sala::IncrementarPaso()
 {
     PasoSucesivo++;
     qDebug()<<"PASO SUCESIVO: "<<PasoSucesivo;
-    if (PasoSucesivo==total_de_jugadores){
+    if (PasoSucesivo>=total_de_jugadores){
         int index=0;
         int mayor=0;
         for (int i;i<4;i++){
@@ -93,7 +98,7 @@ string sala::IncrementarPaso()
                 index=i;
             }
         }
-        return Nombres[index];
+        return Nombres[index]+"("+to_string(Puntajes[index])+")";
     }
     return "";
 }
@@ -103,7 +108,6 @@ string sala::IncrementarPaso()
 void sala::ResponderResto(string jason)
 {
     Socket  *canal= &Socket::getInstance();
-    PasoSucesivo=0;
     for (int i=0;i<total_de_jugadores;i++){
         if (i!=ultimo_jugador){
             qDebug()<<"JASON PARTIDA GENERAL ENVIADO: "<<jason.c_str();

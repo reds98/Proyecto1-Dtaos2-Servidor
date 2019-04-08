@@ -212,7 +212,6 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
             string ganador="";
             ganador=SalaActual->IncrementarPaso();
             if (ganador==""){
-                qDebug()<<"TURNO EN BLANCO";
                 RespuestaPrincipal="1";
                 send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
                 string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer,"");
@@ -233,13 +232,13 @@ void Socket::escuchar_partida2(int puerto, sala *SalaActual)
 
         bool val;
         val=Trad->getval(RespuestaPrincipal);
-
+        SalaActual->ReiniciarSucesivo();
 
         if (val){
             string RespuestaGeneral=Trad->SerializarRespuestaTurnoAjeno(buffer,"");
-            SalaActual->ResponderResto(RespuestaGeneral);
             int puntos=Trad->getPuntos(RespuestaPrincipal);
             SalaActual->SumarPuntaje(puntos);
+            SalaActual->ResponderResto(RespuestaGeneral);
             send(new_socket , RespuestaPrincipal.c_str() , strlen(RespuestaPrincipal.c_str()) , 0 );
         }
         else{
